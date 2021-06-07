@@ -11,9 +11,7 @@ export default function reducer(state, action) {
     // when a TODO is toggled, mark/unmark its `complete` property
     case "TOGGLE_TODO": {
       const toggledTodos = state.todos.map((todo) =>
-        todo.id === action.payload.id
-          ? { ...action.payload, complete: !action.payload.complete }
-          : todo
+        todo.id === action.payload.id ? action.payload : todo
       );
 
       return {

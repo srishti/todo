@@ -8,8 +8,16 @@ export default function TodoList() {
   const title =
     state.todos.length > 0 ? `${state.todos.length} TODOs` : "Nothing To Do!";
 
-  const deleteTodoHandler = (todo) => {
-    axios.delete(
+  const toggleTodoHandler = async (todo) => {
+    const response = await axios.patch(
+      `https://hooks-api-b40sfriga-srishti.vercel.app/todos/${todo.id}`,
+      { complete: !todo.complete }
+    );
+    dispatch({ type: "TOGGLE_TODO", payload: response.data });
+  };
+
+  const deleteTodoHandler = async (todo) => {
+    await axios.delete(
       `https://hooks-api-b40sfriga-srishti.vercel.app/todos/${todo.id}`
     );
     dispatch({ type: "REMOVE_TODO", payload: todo });
@@ -31,9 +39,7 @@ export default function TodoList() {
                 className={`flex-1 ml-16 cursor-pointer ${
                   todo.complete && "line-through text-grey-darkest"
                 }`}
-                onDoubleClick={() =>
-                  dispatch({ type: "TOGGLE_TODO", payload: todo })
-                }
+                onDoubleClick={() => toggleTodoHandler(todo)}
               >
                 {todo.text}
               </span>
