@@ -20,7 +20,7 @@ export default function TodoList() {
             >
               {/*  TODO text */}
               <span
-                className={`flex-1 cursor-pointer ${
+                className={`flex-1 ml-16 cursor-pointer ${
                   todo.complete && "line-through text-grey-darkest"
                 }`}
                 onDoubleClick={() =>
@@ -29,6 +29,17 @@ export default function TodoList() {
               >
                 {todo.text}
               </span>
+              {/* TODO edit icon */}
+              <button>
+                <img
+                  src="https://img.icons8.com/edit"
+                  alt="Edit Icon"
+                  className="h-6 mr-2"
+                  onClick={() =>
+                    dispatch({ type: "SET_CURRENT_TODO", payload: todo })
+                  }
+                />
+              </button>
               {/*  TODO delete icon */}
               <button
                 onClick={() => dispatch({ type: "REMOVE_TODO", payload: todo })}

@@ -2,6 +2,14 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function reducer(state, action) {
   switch (action.type) {
+    // when a TODO is chosen to be edited, it is set as the currentTodo
+    case "SET_CURRENT_TODO": {
+      return {
+        ...state,
+        currentTodo: action.payload,
+      };
+    }
+
     // when a TODO is toggled, mark/unmark its `complete` property
     case "TOGGLE_TODO": {
       const toggledTodos = state.todos.map((todo) =>
@@ -42,6 +50,38 @@ export default function reducer(state, action) {
       return {
         ...state,
         todos: addedTodos,
+      };
+    }
+
+    // when a TODO is updated
+    case "UPDATE_TODO": {
+      // prevent updating to an empty TODO
+      if (!action.payload) {
+        return state;
+      }
+
+      // prevent updating to a TODO which already exists
+      if (state.todos.findIndex((todo) => todo.text === action.payload) > -1) {
+        return state;
+      }
+
+      const updatedTodo = {
+        ...state.currentTodo,
+        text: action.payload,
+      };
+      const updatedTodoIndex = state.todos.findIndex(
+        (todo) => todo.id === state.currentTodo.id
+      );
+      const updatedTodos = [
+        ...state.todos.slice(0, updatedTodoIndex),
+        updatedTodo,
+        ...state.todos.slice(updatedTodoIndex + 1),
+      ];
+
+      return {
+        ...state,
+        currentTodo: {},
+        todos: updatedTodos,
       };
     }
 
