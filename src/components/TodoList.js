@@ -1,11 +1,19 @@
 import React, { useContext } from "react";
 import TodosContext from "../context";
+import axios from "axios";
 
 export default function TodoList() {
   const { state, dispatch } = useContext(TodosContext);
 
   const title =
     state.todos.length > 0 ? `${state.todos.length} TODOs` : "Nothing To Do!";
+
+  const deleteTodoHandler = (todo) => {
+    axios.delete(
+      `https://hooks-api-b40sfriga-srishti.vercel.app/todos/${todo.id}`
+    );
+    dispatch({ type: "REMOVE_TODO", payload: todo });
+  };
 
   return (
     <div className="container mx-auto max-w-md text-center font-mono">
@@ -41,9 +49,7 @@ export default function TodoList() {
                 />
               </button>
               {/*  TODO delete icon */}
-              <button
-                onClick={() => dispatch({ type: "REMOVE_TODO", payload: todo })}
-              >
+              <button onClick={() => deleteTodoHandler(todo)}>
                 <img
                   src="https://img.icons8.com/delete"
                   alt="Delete Icon"
