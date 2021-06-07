@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 export default function reducer(state, action) {
   switch (action.type) {
     // when a TODO is chosen to be edited, it is set as the currentTodo
@@ -34,26 +32,7 @@ export default function reducer(state, action) {
 
     // when a TODO is added
     case "ADD_TODO": {
-      // prevent adding an empty TODO
-      if (!action.payload) {
-        return state;
-      }
-
-      // prevent adding a TODO which already exists
-      if (
-        state.todos.findIndex(
-          (todo) => todo.text.toLowerCase() === action.payload.toLowerCase()
-        ) > -1
-      ) {
-        return state;
-      }
-
-      const newTodo = {
-        id: uuidv4(),
-        text: action.payload,
-        complete: false,
-      };
-      const addedTodos = [...state.todos, newTodo];
+      const addedTodos = [...state.todos, action.payload];
 
       return {
         ...state,

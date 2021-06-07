@@ -1,31 +1,51 @@
 import React, { useContext, useState, useEffect } from "react";
 import TodosContext from "../context";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 export default function TodoForm() {
-  const [todo, setTodo] = useState("");
-  const {
-    state: { currentTodo },
-    dispatch,
-  } = useContext(TodosContext);
+  const [todoText, setTodoText] = useState("");
+  const { state, dispatch } = useContext(TodosContext);
 
   useEffect(() => {
-    if (currentTodo.text) {
+    if (state.currentTodo.text) {
       // if currentTodo is set (a TODO is selected for editing), set its text in input textbox
-      setTodo(currentTodo.text);
+      setTodoText(state.currentTodo.text);
     } else {
       // if currentTodo is removed, empty input textbox
-      setTodo("");
+      setTodoText("");
     }
-  }, [currentTodo.id]);
+  }, [state.currentTodo.id]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (currentTodo.text) {
-      dispatch({ type: "UPDATE_TODO", payload: todo });
+
+    if (state.currentTodo.text) {
+      dispatch({ type: "UPDATE_TODO", payload: todoText });
     } else {
-      dispatch({ type: "ADD_TODO", payload: todo });
+      // checking if text of added TODO already exists
+      const doesTodoExist =
+        state.todos.findIndex(
+          (t) => t.text.toLowerCase() === todoText.toLowerCase()
+        ) > -1;
+
+      // prevent adding an empty TODO or a TODO which already exists
+      if (todoText && !doesTodoExist) {
+        const newTodo = {
+          id: uuidv4(),
+          text: todoText,
+          complete: false,
+        };
+
+        const response = await axios.post(
+          "https://hooks-api-b40sfriga-srishti.vercel.app/todos",
+          newTodo
+        );
+
+        dispatch({ type: "ADD_TODO", payload: response.data });
+      }
     }
-    setTodo("");
+    setTodoText("");
   };
 
   return (
@@ -33,8 +53,8 @@ export default function TodoForm() {
       <input
         type="text"
         className="border-black border-solid border-2"
-        value={todo}
-        onChange={(event) => setTodo(event.target.value)}
+        value={todoText}
+        onChange={(event) => setTodoText(event.target.value)}
         placeholder="add or edit here"
       />
     </form>
