@@ -12,7 +12,11 @@ export default function TodoForm() {
 
   useEffect(() => {
     if (currentTodo.text) {
+      // if currentTodo is set (a TODO is selected for editing), set its text in input textbox
       setTodo(currentTodo.text);
+    } else {
+      // if currentTodo is removed, empty input textbox
+      setTodo("");
     }
   }, [currentTodo.id]);
 

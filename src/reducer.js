@@ -91,9 +91,14 @@ export default function reducer(state, action) {
         return todo.id !== action.payload.id;
       });
 
+      // if currentTodo is removed, set currentTodo to initial state (empty object)
+      const removedTodo =
+        state.currentTodo.id === action.payload.id ? {} : state.currentTodo;
+
       return {
         ...state,
         todos: filteredTodos,
+        currentTodo: removedTodo,
       };
     }
 
