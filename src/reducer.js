@@ -13,6 +13,17 @@ export default function reducer(state, action) {
       };
     }
 
+    // when a TODO is deleted
+    case "REMOVE_TODO": {
+      const filteredTodos = state.todos.filter((todo) => {
+        return todo.id !== action.payload.id;
+      });
+      return {
+        ...state,
+        todos: filteredTodos,
+      };
+    }
+
     // when no case matches, return the state as it is
     default: {
       return state;
