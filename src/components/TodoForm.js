@@ -8,8 +8,6 @@ export default function TodoForm() {
     dispatch,
   } = useContext(TodosContext);
 
-  console.log({ todo, currentTodo });
-
   useEffect(() => {
     if (currentTodo.text) {
       // if currentTodo is set (a TODO is selected for editing), set its text in input textbox
@@ -31,12 +29,13 @@ export default function TodoForm() {
   };
 
   return (
-    <form className="flex justify-center p-5" onSubmit={handleSubmit}>
+    <form className="flex justify-center p-5 mt-2" onSubmit={handleSubmit}>
       <input
         type="text"
         className="border-black border-solid border-2"
         value={todo}
         onChange={(event) => setTodo(event.target.value)}
+        placeholder="add or edit here"
       />
     </form>
   );
