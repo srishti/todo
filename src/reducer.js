@@ -24,6 +24,14 @@ export default function reducer(state, action) {
       };
     }
 
+    // when all saved TODOs are displayed
+    case "GET_TODOS": {
+      return {
+        ...state,
+        todos: action.payload,
+      };
+    }
+
     // when a TODO is added
     case "ADD_TODO": {
       // prevent adding an empty TODO
