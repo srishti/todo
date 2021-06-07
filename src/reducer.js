@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export default function reducer(state, action) {
   switch (action.type) {
     // when a TODO is toggled, mark/unmark its `complete` property
@@ -7,9 +9,39 @@ export default function reducer(state, action) {
           ? { ...action.payload, complete: !action.payload.complete }
           : todo
       );
+
       return {
         ...state,
         todos: toggledTodos,
+      };
+    }
+
+    // when a TODO is added
+    case "ADD_TODO": {
+      // prevent adding an empty TODO
+      if (!action.payload) {
+        return state;
+      }
+
+      // prevent adding a TODO which already exists
+      if (
+        state.todos.findIndex(
+          (todo) => todo.text.toLowerCase() === action.payload.toLowerCase()
+        ) > -1
+      ) {
+        return state;
+      }
+
+      const newTodo = {
+        id: uuidv4(),
+        text: action.payload,
+        complete: false,
+      };
+      const addedTodos = [...state.todos, newTodo];
+
+      return {
+        ...state,
+        todos: addedTodos,
       };
     }
 
@@ -18,6 +50,7 @@ export default function reducer(state, action) {
       const filteredTodos = state.todos.filter((todo) => {
         return todo.id !== action.payload.id;
       });
+
       return {
         ...state,
         todos: filteredTodos,
