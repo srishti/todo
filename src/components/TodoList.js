@@ -16,6 +16,10 @@ export default function TodoList() {
     dispatch({ type: "TOGGLE_TODO", payload: response.data });
   };
 
+  const editTodoHandler = (todo) => {
+    dispatch({ type: "SET_CURRENT_TODO", payload: todo });
+  };
+
   const deleteTodoHandler = async (todo) => {
     await axios.delete(
       `https://hooks-api-b40sfriga-srishti.vercel.app/todos/${todo.id}`
@@ -49,9 +53,7 @@ export default function TodoList() {
                   src="https://img.icons8.com/edit"
                   alt="Edit Icon"
                   className="h-6 mr-2"
-                  onClick={() =>
-                    dispatch({ type: "SET_CURRENT_TODO", payload: todo })
-                  }
+                  onClick={() => editTodoHandler(todo)}
                 />
               </button>
               {/*  TODO delete icon */}

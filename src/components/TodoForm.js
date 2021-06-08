@@ -20,30 +20,36 @@ export default function TodoForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (state.currentTodo.text) {
-      dispatch({ type: "UPDATE_TODO", payload: todoText });
-    } else {
-      // checking if text of added TODO already exists
-      const doesTodoExist =
-        state.todos.findIndex(
-          (t) => t.text.toLowerCase() === todoText.toLowerCase()
-        ) > -1;
+    // checking if text of added/updated TODO already exists
+    const doesTodoExist =
+      state.todos.findIndex(
+        (t) => t.text.toLowerCase() === todoText.toLowerCase()
+      ) > -1;
 
-      // prevent adding an empty TODO or a TODO which already exists
-      if (todoText && !doesTodoExist) {
-        const newTodo = {
-          id: uuidv4(),
+    if (!todoText || doesTodoExist) {
+      // if text is empty or TODO already exists, reset currentTodo to initial value
+      dispatch({ type: "SET_CURRENT_TODO", payload: {} });
+    } else if (state.currentTodo.text) {
+      // if currentTodo's text exists, edit the TODO
+      const response = await axios.patch(
+        `https://hooks-api-b40sfriga-srishti.vercel.app/todos/${state.currentTodo.id}`,
+        {
           text: todoText,
-          complete: false,
-        };
-
-        const response = await axios.post(
-          "https://hooks-api-b40sfriga-srishti.vercel.app/todos",
-          newTodo
-        );
-
-        dispatch({ type: "ADD_TODO", payload: response.data });
-      }
+        }
+      );
+      dispatch({ type: "UPDATE_TODO", payload: response.data });
+    } else {
+      // if currentTodo's text does not exist, add the TODO
+      const newTodo = {
+        id: uuidv4(),
+        text: todoText,
+        complete: false,
+      };
+      const response = await axios.post(
+        "https://hooks-api-b40sfriga-srishti.vercel.app/todos",
+        newTodo
+      );
+      dispatch({ type: "ADD_TODO", payload: response.data });
     }
     setTodoText("");
   };

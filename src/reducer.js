@@ -40,30 +40,7 @@ export default function reducer(state, action) {
 
     // when a TODO is updated
     case "UPDATE_TODO": {
-      // prevent updating to an empty TODO
-      if (!action.payload) {
-        return {
-          ...state,
-          currentTodo: {},
-        };
-      }
-
-      // prevent updating to a TODO which already exists
-      if (
-        state.todos.findIndex(
-          (todo) => todo.text.toLowerCase() === action.payload.toLowerCase()
-        ) > -1
-      ) {
-        return {
-          ...state,
-          currentTodo: {},
-        };
-      }
-
-      const updatedTodo = {
-        ...state.currentTodo,
-        text: action.payload,
-      };
+      const updatedTodo = { ...action.payload };
       const updatedTodoIndex = state.todos.findIndex(
         (todo) => todo.id === state.currentTodo.id
       );
