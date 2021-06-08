@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+# TODO App
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Install & Run](#install-&-run)
+3. [Bootstrapping](#bootstrapping)
+4. [Backend Code](#backend-code)
+5. [Credits](#credits)
+
+## Overview
+
+This project is a TODO application which lets a user **view** all saved TODOs (or tasks), **mark** a TODO as complete or incomplete, **create** a new TODO, **update** an existing TODO, and **delete** a saved TODO.
+
+[**Live Demo**](https://srishti-todo.netlify.app/)
+
+![App Screenshot](todo-app.png)
+
+This project has been created using `React.js`.
+
+## Install & Run
+
+Follow the steps mentioned below to install and run this application in development mode:
+
+1. **Clone** the [Git repository](https://github.com/srishti/todo).
+2. In your Terminal, go to the path inside the repository.
+
+   ```zsh
+   cd todo
+   ```
+
+3. Run the following command inside your Terminal to **install all `Node.js` dependencies**:
+
+   ```zsh
+   npm i
+   ```
+
+4. Run the following command inside your Terminal to **run the application on a development server**:
+   ```zsh
+   npm start
+   ```
+   You can see that a new window or tab has been opened for you in your default browser. Alternatively, you can **open the URL [http://localhost:3000/](http://localhost:3000/)** in your browser.
+
+## Bootstrapping
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Backend Code
 
-In the project directory, you can run:
+The backend code is available at **GitHub** inside the repository named **[hooks-api](https://github.com/srishti/hooks-api)**. To run the backend code, you must follow the steps mentioned in its `README.md` file.
 
-### `npm start`
+## Credits
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is an inspiration from the course named [React Hooks](https://aurigo.udemy.com/course/react-hooks/) by **Reed Barger** on **Udemy**.  
+Thank you, Reed!
